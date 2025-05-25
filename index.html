@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+  
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0">
-    <title>Dobro dosli u  Kladanj</title>
+    <title>Dobro dosli u Kladanj</title>
   
     <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
@@ -19,22 +20,20 @@
     </style>
 </head>
 <body>
-    
-  <audio id="audio-bosnian" autoplay>
-    <source src="https://cdn.glitch.global/66b8105c-af2c-4723-ae29-18717294036a/luvvoice.com-20250429-wHv33i.mp3?v=1745947574251" type="audio/mpeg">
-</audio>
-
+    <audio id="audio-bosnian">
+        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliBosanski.mp3" type="audio/mpeg">
+    </audio>
     <audio id="audio-english">
-        <source src="https://cdn.glitch.global/66b8105c-af2c-4723-ae29-18717294036a/luvvoice.com-20250429-IzDOdj.mp3?v=1745948112332" type="audio/mpeg">
+        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliEngleski.mp3" type="audio/mpeg">
     </audio>
     <audio id="audio-german">
-        <source src="https://cdn.glitch.global/66b8105c-af2c-4723-ae29-18717294036a/luvvoice.com-20250429-AFrrQJ.mp3?v=1745948501994" type="audio/mpeg">
+        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliNjemacki.mp3" type="audio/mpeg">
     </audio>
     <audio id="audio-italian">
-        <source src="https://cdn.glitch.global/66b8105c-af2c-4723-ae29-18717294036a/luvvoice.com-20250429-QfqTUA.mp3?v=1745948408369" type="audio/mpeg">
+        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliItalijanski.mp3" type="audio/mpeg">
     </audio>
     <audio id="audio-turkish">
-        <source src="https://cdn.glitch.global/66b8105c-af2c-4723-ae29-18717294036a/luvvoice.com-20250429-T2D9EX.mp3?v=1745948305566" type="audio/mpeg">
+        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliTurski.mp3" type="audio/mpeg">
     </audio>
     <a-scene embedded arjs="sourceType: webcam; trackingMethod: best; debugUIEnabled: false;">
 
@@ -44,15 +43,11 @@
         <!-- Zamijenjeni centar sa 3D modelom -->
       
  
- <a-image src="https://cdn.glitch.global/66b8105c-af2c-4723-ae29-18717294036a/rimskiputkladanj.png?v=1745947624901" 
-         position="0 0.2 -4" 
-         width="3" 
-         height="3" 
-         rotation="0 0 0">
-</a-image>
+   <a-assets>
+    <a-asset-item id="model" src="./Standing_Greeting_Optimized.glb"></a-asset-item>
+  </a-assets> 
 
-
- 
+  <a-entity id="animatedModel" gltf-model="#model" position="0 -0.1 -4" scale="1 1 1" rotation="0 0 0" custom-animation></a-entity>
  <a-camera position="0 1.6 0">
         <a-cursor color="#FF0000" radius="0.05" position="0 0 -1"></a-cursor>
     </a-camera>
@@ -176,14 +171,6 @@
            <a-cursor color="#FF0000" radius="0.05" position="0 0 -1"></a-cursor>
 <!--             <a-cursor color="#FF0000" radius="0.05"></a-cursor> -->
         </a-entity>
-      
-      <a-text value="" 
-        position="0.7 1.6 -5" 
-        align="center" 
-        color="white" 
-        width="6">
-</a-text>
-
     </a-scene>
 
     <script>
