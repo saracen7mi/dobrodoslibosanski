@@ -43,11 +43,27 @@
         <!-- Zamijenjeni centar sa 3D modelom -->
       
  
-   <a-assets>
+<!--    <a-assets>
     <a-asset-item id="model" src="https://od.lk/s/NzhfNjk4OTEzMDZf/Standing%20Greeting%20%281%29.glb"></a-asset-item>
   </a-assets> 
 
   <a-entity id="animatedModel" gltf-model="#model" position="0 -0.1 -4" scale="1 1 1" rotation="0 0 0" custom-animation></a-entity>
+ -->
+
+<a-scene>
+  <a-assets>
+    <a-asset-item id="model" src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/7d08cd5e630d8d62c1665685472d4924ca8a4d41/Standing_Greeting_Optimized.glb"></a-asset-item>
+  </a-assets>
+
+  <a-entity gltf-model="#model" position="0 0 0" scale="1 1 1" rotation="0 180 0"></a-entity>
+
+  <a-camera position="0 1.6 3"></a-camera>
+</a-scene>
+
+
+
+      
+      
  <a-camera position="0 1.6 0">
         <a-cursor color="#FF0000" radius="0.05" position="0 0 -1"></a-cursor>
     </a-camera>
