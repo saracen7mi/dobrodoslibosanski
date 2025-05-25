@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   
 <head>
@@ -51,8 +51,8 @@
  -->
 
 <a-scene>
-  <a-assets>
-    <a-asset-item id="model" src="https://cdn.jsdelivr.net/gh/saracen7mi/dobrodoslikladanj@main/Standing%20Greeting%20Optimized.glb"></a-asset-item>
+  <a-assets>   
+    <a-asset-item id="model" src="https://cdn.jsdelivr.net/gh/saracen7mi/dobrodoslikladanj@main/Standing%20Greeting%20Optimized%20.glb"></a-asset-item>
   </a-assets>
 
   <a-entity gltf-model="#model" position="0 0 0" scale="1 1 1" rotation="0 180 0"></a-entity>
@@ -219,3 +219,165 @@
     </script>
 </body>
 </html>
+ -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dobro došli u Kladanj</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+        body { 
+            margin: 0; 
+            overflow: hidden; 
+            font-family: Arial, sans-serif; 
+            background: #222;
+        }
+        model-viewer { 
+            width: 100vw; 
+            height: 100vh; 
+            background: linear-gradient(to bottom, #444, #000); 
+        }
+        #loading-screen { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0, 0, 0, 0.9); 
+            color: white; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 1000; 
+            font-size: 24px;
+        }
+        .button-container { 
+            position: fixed; 
+            top: 20px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            display: flex; 
+            gap: 10px; 
+            z-index: 100; 
+        }
+        .lang-button { 
+            padding: 10px 20px; 
+            font-size: 16px; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: transform 0.2s; 
+        }
+        .lang-button:hover { 
+            transform: scale(1.1); 
+        }
+        #eng-button { background: red; }
+        #deu-button { background: yellow; color: black; }
+        #ita-button { background: blue; }
+        #tur-button { background: brown; }
+    </style>
+</head>
+<body>
+    <div id="loading-screen">Učitavanje...</div>
+    <audio id="audio-bosnian">
+        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliBosanski.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audio-english">
+        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliEngleski.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audio-german">
+        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliNjemacki.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audio-italian">
+        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliItalijanski.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audio-turkish">
+        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliTurski.mp3" type="audio/mpeg">
+    </audio>
+    <div class="button-container">
+        <button id="eng-button" class="lang-button">ENG</button>
+        <button id="deu-button" class="lang-button">DEU</button>
+        <button id="ita-button" class="lang-button">ITA</button>
+        <button id="tur-button" class="lang-button">TUR</button>
+    </div>
+    <model-viewer 
+        src="https://cdn.jsdelivr.net/gh/saracen7mi/dobrodoslikladanj@main/Standing%20Greeting%20Optimized%20.glb" 
+        auto-rotate 
+        camera-controls 
+        ar 
+        ar-modes="webxr scene-viewer quick-look"
+        shadow-intensity="1"
+        exposure="1"
+        camera-orbit="0deg 75deg 3m"
+        field-of-view="30deg"
+        min-camera-orbit="auto auto 2m"
+        max-camera-orbit="auto auto 5m"
+        loading="eager"
+        id="model-viewer">
+    </model-viewer>
+    <script>
+        const modelViewer = document.getElementById('model-viewer');
+        const loadingScreen = document.getElementById('loading-screen');
+
+        modelViewer.addEventListener('load', () => {
+            console.log('Model uspješno učitan!');
+            loadingScreen.style.display = 'none';
+        });
+
+        modelViewer.addEventListener('error', (e) => {
+            console.error('Greška pri učitavanju modela:', e);
+            loadingScreen.innerText = 'Greška pri učitavanju modela!';
+        });
+
+        let bosnianAudio = document.getElementById('audio-bosnian');
+        let englishAudio = document.getElementById('audio-english');
+        let germanAudio = document.getElementById('audio-german');
+        let italianAudio = document.getElementById('audio-italian');
+        let turkishAudio = document.getElementById('audio-turkish');
+
+        function stopAllAudio() {
+            [bosnianAudio, englishAudio, germanAudio, italianAudio, turkishAudio].forEach(audio => {
+                audio.pause();
+                audio.currentTime = 0;
+            });
+        }
+
+        function playAudio(audioElement) {
+            stopAllAudio();
+            audioElement.play();
+        }
+
+        document.getElementById('eng-button').addEventListener('click', () => playAudio(englishAudio));
+        document.getElementById('deu-button').addEventListener('click', () => playAudio(germanAudio));
+        document.getElementById('ita-button').addEventListener('click', () => playAudio(italianAudio));
+        document.getElementById('tur-button').addEventListener('click', () => playAudio(turkishAudio));
+
+        window.addEventListener('load', () => {
+            document.body.addEventListener('click', () => {
+                if (bosnianAudio.paused) {
+                    bosnianAudio.play();
+                }
+            }, { once: true });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+ 
