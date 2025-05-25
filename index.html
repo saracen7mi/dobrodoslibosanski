@@ -230,7 +230,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dobro došli u Kladanj</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer@4.1.0/dist/model-viewer.min.js"></script>
     <style>
         body { 
             margin: 0; 
@@ -336,11 +336,11 @@
             loadingScreen.innerText = 'Greška pri učitavanju modela!';
         });
 
-        let bosnianAudio = document.getElementById('audio-bosnian');
-        let englishAudio = document.getElementById('audio-english');
-        let germanAudio = document.getElementById('audio-german');
-        let italianAudio = document.getElementById('audio-italian');
-        let turkishAudio = document.getElementById('audio-turkish');
+        const bosnianAudio = document.getElementById('audio-bosnian');
+        const englishAudio = document.getElementById('audio-english');
+        const germanAudio = document.getElementById('audio-german');
+        const italianAudio = document.getElementById('audio-italian');
+        const turkishAudio = document.getElementById('audio-turkish');
 
         function stopAllAudio() {
             [bosnianAudio, englishAudio, germanAudio, italianAudio, turkishAudio].forEach(audio => {
@@ -369,7 +369,6 @@
     </script>
 </body>
 </html>
-
 
 
 
