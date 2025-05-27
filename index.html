@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -176,3 +176,94 @@
     </script>
 </body>
 </html>
+ -->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+  <meta charset="UTF-8">
+  <title>Dobro došli u Kladanj</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #000;
+      color: white;
+      text-align: center;
+    }
+    model-viewer {
+      width: 100vw;
+      height: 100vh;
+      background-color: #000;
+    }
+    .controls {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      gap: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <button onclick="playAudio('audio-bosnian')">BOS</button>
+    <button onclick="playAudio('audio-english')">ENG</button>
+    <button onclick="playAudio('audio-german')">DEU</button>
+    <button onclick="playAudio('audio-italian')">ITA</button>
+    <button onclick="playAudio('audio-turkish')">TUR</button>
+  </div>
+
+  <model-viewer 
+    src="https://firebasestorage.googleapis.com/v0/b/mirzacard-8ee30.firebasestorage.app/o/Standing_Greeting_Optimized.glb?alt=media&token=e80b9847-8237-4aab-a130-a451d25bba68"
+    autoplay 
+    animation-name="Greeting" 
+    auto-rotate 
+    camera-controls 
+    ar 
+    ar-modes="webxr scene-viewer quick-look"
+    shadow-intensity="1"
+    exposure="1"
+    alt="3D Pozdravni model"
+  ></model-viewer>
+
+  <!-- Audio fajlovi -->
+  <audio id="audio-bosnian" src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliBosanski.mp3"></audio>
+  <audio id="audio-english" src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliEngleski.mp3"></audio>
+  <audio id="audio-german" src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliNjemacki.mp3"></audio>
+  <audio id="audio-italian" src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliItalijanski.mp3"></audio>
+  <audio id="audio-turkish" src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliTurski.mp3"></audio>
+
+  <script>
+    function playAudio(id) {
+      const audio = document.getElementById(id);
+      document.querySelectorAll("audio").forEach(a => {
+        a.pause();
+        a.currentTime = 0;
+      });
+      audio.play().catch(e => console.error("Greška pri puštanju zvuka:", e));
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+ 
