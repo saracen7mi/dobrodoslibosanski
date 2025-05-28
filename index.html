@@ -43,9 +43,13 @@
         <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliTurski.mp3" type="audio/mpeg">
     </audio>
     <a-scene embedded>
-        <a-assets timeout="30000">
+        <a-entity 
+  gltf-model="https://saracen7mi.github.io/dobrodoslibosanski/assets/Standing_Greeting_Optimized.glb" 
+  position="0 0 -2" scale="1 1 1" rotation="0 0 0">
+</a-entity>        
+<!--         <a-assets timeout="30000">
             <a-asset-item id="model" src="https://saracen7mi.github.io/dobrodoslibosanski/assets/Standing_Greeting_Optimized.glb"></a-asset-item>
-        </a-assets>
+        </a-assets> -->
         <a-entity id="animatedModel" gltf-model="#model" position="0 0 -2" scale="1 1 1" rotation="0 0 0" custom-animation></a-entity>
         <a-plane color="#008000" height="3.5" width="6.5" position="0 -0.1 -2" rotation="-90 0 0" opacity="0.9"></a-plane>
         <a-entity id="eng-button" geometry="primitive: plane; height: 0.5; width: 1.5" material="color: red" position="-2.5 2 -2" rotation="0 0 0" text="value: ENG; color: white; align: center; width: 3;" audio-button="audio: audio-english"></a-entity>
