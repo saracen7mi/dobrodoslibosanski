@@ -182,10 +182,10 @@
 
 
 
-<!-- <html lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=0">
     <title>Dobro došli u Kladanj</title>
     <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
@@ -358,197 +358,12 @@
         });
     </script>
 </body>
-</html> -->
-
-
-
-
-
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0">
-    <title>Dobro došli u Kladanj</title>
-    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <style>
-        body { margin: 0; overflow: hidden; }
-        a-scene { width: 80%; height: 80vh; }
-        #loading-screen { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 80%; 
-            height: 80%; 
-            background: rgba(0, 0, 0, 0.9); 
-            color: white; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            z-index: 1000; 
-            font-size: 24px;
-        }
-    </style>
-</head>
-<body>
-    <div id="loading-screen">Učitavanje...</div>
-    <audio id="audio-bosnian">
-        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliBosanski.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="audio-english">
-        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliEngleski.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="audio-german">
-        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliNjemacki.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="audio-italian">
-        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliItalijanski.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="audio-turkish">
-        <source src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliTurski.mp3" type="audio/mpeg">
-    </audio>
-    <a-scene embedded arjs="sourceType: webcam; trackingMethod: best; debugUIEnabled: false;">
-        <a-assets timeout="30000">
-            <a-asset-item id="model" src="https://cdn.jsdelivr.net/gh/saracen7mi/dobrodoslibosanski@main/compressedstanding_greeting.glb"></a-asset-item>
-        </a-assets>
-        <a-sky color="#1A237E" material="shader: gradient; topColor: 26 35 126; bottomColor: 100 181 246"></a-sky>
-        <a-entity id="animatedModel" gltf-model="#model" position="0 0 -2" scale="0.2 0.2 0.2" rotation="0 0 0" custom-animation></a-entity>
-        <a-plane color="#008000" height="1.5" width="2.5" position="0 0.5 -2.5" rotation="0 0 0" opacity="0.9"></a-plane>
-        <a-entity id="eng-button" geometry="primitive: plane; height: 0.1; width: 0.4" material="color: red" position="-0.7 0.8 -2" rotation="0 0 0" text="value: ENG; color: white; align: center; width: 0.8;" audio-button="audio: audio-english"></a-entity>
-        <a-entity id="deu-button" geometry="primitive: plane; height: 0.1; width: 0.4" material="color: yellow" position="-0.2 0.8 -2" rotation="0 0 0" text="value: DEU; color: black; align: center; width: 0.8;" audio-button="audio: audio-german"></a-entity>
-        <a-entity id="ita-button" geometry="primitive: plane; height: 0.1; width: 0.4" material="color: blue" position="0.2 0.8 -2" rotation="0 0 0" text="value: ITA; color: white; align: center; width: 0.8;" audio-button="audio: audio-italian"></a-entity>
-        <a-entity id="tur-button" geometry="primitive: plane; height: 0.1; width: 0.4" material="color: brown" position="0.7 0.8 -2" rotation="0 0 0" text="value: TUR; color: white; align: center; width: 0.8;" audio-button="audio: audio-turkish"></a-entity>
-        <a-entity id="stars-container" falling-stars></a-entity>
-        <a-light id="flash-light" type="point" intensity="0" color="white" position="0 0.8 -2"></a-light>
-        <a-light type="ambient" intensity="0.6" color="#FFF"></a-light>
-        <a-camera position="0 0.6 0">
-            <a-cursor color="#FF0000" radius="0.01" position="0 0 -0.3"></a-cursor>
-        </a-camera>
-    </a-scene>
-    <script>
-        AFRAME.registerComponent('custom-animation', {
-            init: async function () {
-                let el = this.el;
-                let mixer = new THREE.AnimationMixer();
-                let clock = new THREE.Clock();
-
-                el.addEventListener('model-loaded', (e) => {
-                    console.log('Model uspješno učitan!', e.detail);
-                    let model = e.detail.model;
-                    if (model.animations && model.animations.length > 0) {
-                        let clip = mixer.clipAction(model.animations[0], model);
-                        clip.play();
-                        this.mixer = mixer;
-                        this.clock = clock;
-                        console.log('Animacija pokrenuta!');
-                    } else {
-                        console.warn('Nema animacija u modelu!');
-                    }
-                    document.getElementById('loading-screen').style.display = 'none';
-                });
-                el.addEventListener('model-error', (e) => {
-                    console.error('Greška pri učitavanju modela:', e.detail);
-                    document.getElementById('loading-screen').innerText = 'Greška pri učitavanju modela! Provjerite konzolu.';
-                });
-            },
-            tick: function () {
-                if (this.mixer) {
-                    this.mixer.update(this.clock.getDelta());
-                }
-            }
-        });
-
-        AFRAME.registerComponent("falling-stars", {
-            init: function () {
-                let scene = document.querySelector("#stars-container");
-                for (let i = 0; i < 15; i++) {
-                    let star = document.createElement("a-sphere");
-                    star.setAttribute("radius", "0.01");
-                    star.setAttribute("material", "color: #FFD700; opacity: 0.8");
-                    star.setAttribute("position", `${(Math.random() - 0.5) * 2} ${Math.random() * 1 + 0.5} ${-2}`);
-                    scene.appendChild(star);
-                    this.animateStar(star);
-                }
-            },
-            animateStar: function (star) {
-                function fall() {
-                    let startY = Math.random() * 1 + 0.5;
-                    let duration = Math.random() * 3000 + 2000;
-                    star.setAttribute("position", `${(Math.random() - 0.5) * 2} ${startY} -2`);
-                    star.setAttribute("animation", {
-                        property: "position",
-                        to: `${(Math.random() - 0.5) * 2} -0.2 -2`,
-                        dur: duration,
-                        easing: "linear",
-                        loop: false
-                    });
-                    star.setAttribute("animation__fade", {
-                        property: "material.opacity",
-                        to: 0,
-                        dur: duration,
-                        easing: "linear",
-                        loop: false
-                    });
-                    setTimeout(() => fall(), duration);
-                }
-                fall();
-            }
-        });
-
-        AFRAME.registerComponent('audio-button', {
-            schema: {
-                audio: { type: 'string' }
-            },
-            init: function () {
-                this.el.addEventListener('click', () => {
-                    const audioElement = document.getElementById(this.data.audio);
-                    if (audioElement) {
-                        stopAllAudio();
-                        audioElement.play().catch(e => console.error('Greška pri reprodukciji audija:', e));
-                    } else {
-                        console.error('Audio element ne postoji:', this.data.audio);
-                    }
-                });
-            }
-        });
-
-        function flashEffect() {
-            let light = document.querySelector("#flash-light");
-            let intensity = Math.random() * 0.5;
-            light.setAttribute("intensity", intensity);
-            setTimeout(() => {
-                light.setAttribute("intensity", "0");
-                setTimeout(flashEffect, Math.random() * 600 + 300);
-            }, 100);
-        }
-        flashEffect();
-
-        const bosnianAudio = document.getElementById('audio-bosnian');
-        const englishAudio = document.getElementById('audio-english');
-        const germanAudio = document.getElementById('audio-german');
-        const italianAudio = document.getElementById('audio-italian');
-        const turkishAudio = document.getElementById('audio-turkish');
-
-        function stopAllAudio() {
-            [bosnianAudio, englishAudio, germanAudio, italianAudio, turkishAudio].forEach(audio => {
-                if (audio) {
-                    audio.pause();
-                    audio.currentTime = 0;
-                }
-            });
-        }
-
-        window.addEventListener('load', () => {
-            console.log('Stranica učitana. Provjeravam resurse...');
-            document.body.addEventListener('click', () => {
-                if (bosnianAudio && bosnianAudio.paused) {
-                    bosnianAudio.play().catch(e => console.error('Greška pri reprodukciji bosanskog audija:', e));
-                }
-            }, { once: true });
-        });
-    </script>
-</body>
 </html>
+
+
+
+
+
 
 
  
