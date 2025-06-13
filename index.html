@@ -182,165 +182,189 @@
 
 
 <!DOCTYPE html>
-<html lang="bs">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=0" />
   <title>Dobro došli u Kladanj</title>
+
   <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
       overflow: hidden;
-      color: white;
-    }
-    #loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      font-size: 24px;
     }
     a-scene {
-      width: 100%;
-      height: 100vh;
-    }
-    .button-panel {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      z-index: 999;
-    }
-    .lang-button {
-      background: rgba(255, 255, 255, 0.15);
-      border: 2px solid white;
-      border-radius: 8px;
-      padding: 10px 15px;
-      font-weight: bold;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .lang-button:hover {
-      background: rgba(255, 255, 255, 0.3);
+      width: 90%;
+      height: 80vh;
     }
   </style>
 </head>
+
 <body>
-  <div id="loading-screen">Učitavanje...</div>
+  <!-- Audio elementi -->
+  <audio id="audio-bosnian">
+    <source src="https://github.com/saracen7mi/dobrodoslibosanski/blob/main/dobrodosliBosanski.mp3?raw=true" type="audio/mpeg" />
+  </audio>
+  <audio id="audio-english">
+    <source src="https://github.com/saracen7mi/djevojackapecina/blob/main/djevojackapecinaengleski.mp3?raw=true" type="audio/mpeg" />
+  </audio>
+  <audio id="audio-german">
+    <source src="https://github.com/saracen7mi/djevojackapecina/blob/main/djevojackapecinanjemacka.mp3?raw=true" type="audio/mpeg" />
+  </audio>
+  <audio id="audio-italian">
+    <source src="https://github.com/saracen7mi/djevojackapecina/blob/main/djevojackapecinaitalijanski.mp3?raw=true" type="audio/mpeg" />
+  </audio>
+  <audio id="audio-turkish">
+    <source src="https://github.com/saracen7mi/djevojackapecina/blob/main/djevojackapecinaturski.mp3?raw=true" type="audio/mpeg" />
+  </audio>
 
-  <!-- Audio -->
-  <audio id="audio-bosnian" src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliBosanski.mp3"></audio>
-  <audio id="audio-english" src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliEngleski.mp3"></audio>
-  <audio id="audio-german" src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliNjemacki.mp3"></audio>
-  <audio id="audio-italian" src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliItalijanski.mp3"></audio>
-  <audio id="audio-turkish" src="https://raw.githubusercontent.com/saracen7mi/dobrodoslibosanski/main/dobrodosliTurski.mp3"></audio>
+  <a-scene embedded arjs="sourceType: webcam; trackingMethod: best; debugUIEnabled: false;">
+    <a-plane color="#008000" height="3.5" width="6.5" position="0 0.5 -5" opacity="0.9"></a-plane>
 
-  <!-- Button Panel -->
-  <div class="button-panel">
-    <div class="lang-button" onclick="playAudio('audio-english')">ENG</div>
-    <div class="lang-button" onclick="playAudio('audio-german')">DEU</div>
-    <div class="lang-button" onclick="playAudio('audio-italian')">ITA</div>
-    <div class="lang-button" onclick="playAudio('audio-turkish')">TUR</div>
-  </div>
-
-  <!-- A-Frame Scene -->
-  <a-scene embedded>
-    <a-assets timeout="30000">
-      <a-asset-item id="model" src="https://cdn.jsdelivr.net/gh/saracen7mi/dobrodoslibosanski@main/compressedstanding_greeting.glb"></a-asset-item>
+    <a-assets>
+      <a-asset-item id="model" src="https://github.com/saracen7mi/tabinenjive/blob/main/compressedstanding_greeting.glb?raw=true"></a-asset-item>
     </a-assets>
 
-    <a-entity id="animatedModel" gltf-model="#model" position="0 0 -1.5" scale="0.7 0.7 0.7" custom-animation></a-entity>
-    <a-light type="ambient" color="#888"></a-light>
-    <a-light id="flash-light" type="point" intensity="0" position="0 2 -1.5" color="white"></a-light>
+    <a-entity id="animatedModel" gltf-model="#model" position="0 -0.1 -4" scale="1 1 1" rotation="0 0 0" custom-animation></a-entity>
 
-    <a-camera position="0 1.2 0">
-      <a-cursor color="#FF0000" radius="0.03" position="0 0 -0.8"></a-cursor>
-    </a-camera>
+    <a-light id="flash-light" type="point" intensity="0" color="white" position="0 3 -3"></a-light>
+    <a-light type="ambient" color="#666"></a-light>
+
+    <!-- Zvjezdice -->
+    <a-entity id="stars-container" falling-stars></a-entity>
+
+    <!-- Jezički dugmići -->
+    <a-entity id="eng-button" geometry="primitive: plane; height: 0.5; width: 1.5"
+              material="color: red" position="-2.5 2 -4.9"
+              text="value: ENG; color: white; align: center; width: 3;">
+    </a-entity>
+
+    <a-entity id="deu-button" geometry="primitive: plane; height: 0.5; width: 1.5"
+              material="color: yellow" position="-1 2 -4.9"
+              text="value: DEU; color: black; align: center; width: 3;">
+    </a-entity>
+
+    <a-entity id="ita-button" geometry="primitive: plane; height: 0.5; width: 1.5"
+              material="color: blue" position="0.5 2 -4.9"
+              text="value: ITA; color: white; align: center; width: 3;">
+    </a-entity>
+
+    <a-entity id="tur-button" geometry="primitive: plane; height: 0.5; width: 1.5"
+              material="color: brown" position="2 2 -4.9"
+              text="value: TUR; color: white; align: center; width: 3;">
+    </a-entity>
+
+    <a-entity camera look-controls position="0 0 0" fov="85">
+      <a-cursor color="#FF0000" radius="0.05" position="0 0 -1"></a-cursor>
+    </a-entity>
   </a-scene>
 
+  <!-- Skripta za animaciju modela -->
   <script>
+    AFRAME.registerComponent('custom-animation', {
+      init: function () {
+        let el = this.el;
+        let mixer, clock = new THREE.Clock();
+
+        el.addEventListener('model-loaded', function (e) {
+          let model = e.detail.model;
+          if (model.animations.length > 0) {
+            mixer = new THREE.AnimationMixer(model);
+            let clip = mixer.clipAction(model.animations[0]);
+            clip.play();
+          }
+        });
+
+        this.tick = function () {
+          if (mixer) mixer.update(clock.getDelta());
+        };
+      }
+    });
+  </script>
+
+  <!-- Skripta za padajuće zvjezdice -->
+  <script>
+    AFRAME.registerComponent("falling-stars", {
+      init: function () {
+        let scene = this.el;
+
+        for (let i = 0; i < 15; i++) {
+          let star = document.createElement("a-sphere");
+          star.setAttribute("radius", "0.05");
+          star.setAttribute("color", "#FFD700");
+          scene.appendChild(star);
+          this.animateStar(star);
+        }
+      },
+      animateStar: function (star) {
+        const fall = () => {
+          let startY = Math.random() * 3 + 2;
+          let duration = Math.random() * 3000 + 2000;
+
+          star.setAttribute("position", `${(Math.random() - 0.5) * 8} ${startY} -4`);
+          star.setAttribute("animation", {
+            property: "position",
+            to: `${(Math.random() - 0.5) * 8} -1 -4`,
+            dur: duration,
+            easing: "linear",
+            loop: false
+          });
+
+          setTimeout(() => fall(), duration);
+        };
+        fall();
+      }
+    });
+  </script>
+
+  <!-- Skripta za bljeskajuće svjetlo -->
+  <script>
+    function flashEffect() {
+      let light = document.querySelector("#flash-light");
+      let intensity = Math.random() * 2;
+      light.setAttribute("intensity", intensity);
+
+      setTimeout(() => {
+        light.setAttribute("intensity", "0");
+        setTimeout(flashEffect, Math.random() * 500 + 200);
+      }, 100);
+    }
+    flashEffect();
+  </script>
+
+  <!-- Skripta za reprodukciju zvuka -->
+  <script>
+    const bosnianAudio = document.getElementById('audio-bosnian');
+    const englishAudio = document.getElementById('audio-english');
+    const germanAudio = document.getElementById('audio-german');
+    const italianAudio = document.getElementById('audio-italian');
+    const turkishAudio = document.getElementById('audio-turkish');
+
     function stopAllAudio() {
-      document.querySelectorAll('audio').forEach(audio => {
+      [bosnianAudio, englishAudio, germanAudio, italianAudio, turkishAudio].forEach(audio => {
         audio.pause();
         audio.currentTime = 0;
       });
     }
 
-    function playAudio(id) {
+    function playAudio(audioElement) {
       stopAllAudio();
-      const audio = document.getElementById(id);
-      if (audio) {
-        audio.play().catch(err => console.error('Audio greška:', err));
-      }
+      audioElement.play();
     }
 
-    AFRAME.registerComponent('custom-animation', {
-      init: function () {
-        let el = this.el;
-        let mixer = new THREE.AnimationMixer();
-        let clock = new THREE.Clock();
-
-        el.addEventListener('model-loaded', (e) => {
-          let model = e.detail.model;
-          if (model.animations && model.animations.length > 0) {
-            let clip = mixer.clipAction(model.animations[0], model);
-            clip.play();
-            this.mixer = mixer;
-            this.clock = clock;
-          }
-          document.getElementById('loading-screen').style.display = 'none';
-        });
-      },
-      tick: function () {
-        if (this.mixer && this.clock) {
-          this.mixer.update(this.clock.getDelta());
-        }
-      }
-    });
-
-    function flashEffect() {
-      const light = document.getElementById('flash-light');
-      const intensity = Math.random() * 1.5;
-      light.setAttribute("intensity", intensity);
-      setTimeout(() => {
-        light.setAttribute("intensity", "0");
-        setTimeout(flashEffect, Math.random() * 500 + 300);
-      }, 100);
-    }
-
-    flashEffect();
+    document.getElementById('eng-button').addEventListener('mouseenter', () => playAudio(englishAudio));
+    document.getElementById('deu-button').addEventListener('mouseenter', () => playAudio(germanAudio));
+    document.getElementById('ita-button').addEventListener('mouseenter', () => playAudio(italianAudio));
+    document.getElementById('tur-button').addEventListener('mouseenter', () => playAudio(turkishAudio));
 
     window.addEventListener('load', () => {
       document.body.addEventListener('click', () => {
-        const bosnianAudio = document.getElementById('audio-bosnian');
-        bosnianAudio.play().catch(e => console.error('Ne može se pokrenuti audio:', e));
+        if (bosnianAudio.paused) bosnianAudio.play();
       }, { once: true });
     });
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
- 
